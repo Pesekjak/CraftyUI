@@ -1,0 +1,25 @@
+[versions]
+jetbrains-kotlin-gradle = "1.7.21"
+jetbrains-annotations = "23.0.0"
+lombok = "1.18.24"
+junit = "5.9.1"
+
+# Should be the lowest supported version
+spigot-api = "1.19.3-R0.1-SNAPSHOT"
+
+md5-specialsource = "1.11.0"
+
+[libraries]
+jetbrains-kotlin-gradle = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "jetbrains-kotlin-gradle" }
+
+jetbrains-annotations = { module = "org.jetbrains:annotations", version.ref = "jetbrains-annotations" }
+
+lombok = { module = "org.projectlombok:lombok", version.ref = "lombok" }
+
+junit-api = { module = "org.junit.jupiter:junit-jupiter-api", version.ref = "junit" }
+junit-engine = { module = "org.junit.jupiter:junit-jupiter-engine", version.ref = "junit" }
+junit-params = { module = "org.junit.jupiter:junit-jupiter-params", version.ref = "junit" }
+
+spigot-api = { module = "org.spigotmc:spigot-api", version.ref = "spigot-api" }
+
+md5-specialsource = { module = "net.md-5:SpecialSource", version.ref = "md5-specialsource" }
