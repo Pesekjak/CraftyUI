@@ -19,6 +19,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.inventory.InventoryView;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -187,6 +188,16 @@ public class AnvilGui_v1_19_R2 implements IAnvilGui {
     @Override
     public @NotNull String getTextInput() {
         return menu.itemName;
+    }
+
+    @Override
+    public void setTextInput(@NotNull String input) {
+        ItemStack item = getFirstInput();
+        ItemMeta meta = item.getItemMeta();
+        if(meta == null) return;
+        meta.setDisplayName(input);
+        item.setItemMeta(meta);
+        setFirstInput(item);
     }
 
     @Override

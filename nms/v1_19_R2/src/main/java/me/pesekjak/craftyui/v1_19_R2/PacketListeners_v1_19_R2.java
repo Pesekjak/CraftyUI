@@ -20,7 +20,7 @@ public class PacketListeners_v1_19_R2 {
 
     public static void inject(@NotNull Player player) {
         Channel channel = ((CraftPlayer) player).getHandle().connection.connection.channel;
-        if(channel.pipeline().context(PacketHandler.class) != null) return;
+        if(channel.pipeline().get("craftui") != null) return;
         channel.pipeline().addBefore("packet_handler", "craftui", new PacketHandler(player));
     }
 

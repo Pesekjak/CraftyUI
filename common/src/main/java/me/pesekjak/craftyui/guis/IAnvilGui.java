@@ -69,6 +69,12 @@ public interface IAnvilGui extends AbstractGui {
     @NotNull @NonNls String getTextInput();
 
     /**
+     * Changes the text input of the anvil text field by changing
+     * the name of the item in the input slot.
+     */
+    void setTextInput(@NotNull String input);
+
+    /**
      * Called when text input field is updated.
      * @param input new input
      */
