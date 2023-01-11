@@ -8,9 +8,9 @@ import org.bukkit.event.Cancellable;
 import org.bukkit.event.HandlerList;
 import org.bukkit.event.inventory.ClickType;
 import org.bukkit.event.inventory.InventoryAction;
+import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.event.player.PlayerEvent;
 import org.bukkit.inventory.ItemStack;
-import org.intellij.lang.annotations.MagicConstant;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -32,10 +32,7 @@ public class GuiClickEvent extends PlayerEvent implements Cancellable {
     private final @Nullable ItemStack cursor;
     private final @Nullable Integer hotbarButton;
     private final int slot;
-    /**
-     * Magic id of the slot.
-     */
-    private final @MagicConstant short slotType;
+    private final @NotNull InventoryType.SlotType slotType;
 
     @Setter
     private boolean cancelled = false;
@@ -55,7 +52,7 @@ public class GuiClickEvent extends PlayerEvent implements Cancellable {
         this.cursor = who.getItemOnCursor();
         this.hotbarButton = hotbarButton;
         this.slot = slot;
-        this.slotType = gui.getSlotType(slot);
+        this.slotType = inGui ? gui.getSlotType(slot) : InventoryType.SlotType.CONTAINER;
     }
 
     @Override

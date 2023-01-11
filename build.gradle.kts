@@ -7,6 +7,7 @@ version = "1.0.0-SNAPSHOT"
 
 dependencies {
     implementation(project(":common"))
+    implementation(project(":nms"))
     listOf(
         "v1_19_R2"
     ).forEach {

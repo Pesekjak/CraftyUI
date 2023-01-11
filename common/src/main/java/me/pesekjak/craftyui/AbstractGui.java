@@ -5,86 +5,27 @@ import me.pesekjak.craftyui.events.GuiCloseEvent;
 import me.pesekjak.craftyui.events.GuiDragEvent;
 import me.pesekjak.craftyui.events.GuiOpenEvent;
 import net.md_5.bungee.api.chat.BaseComponent;
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryType;
-import org.bukkit.inventory.Inventory;
-import org.bukkit.inventory.InventoryView;
 import org.bukkit.inventory.ItemStack;
-import org.intellij.lang.annotations.MagicConstant;
 import org.jetbrains.annotations.ApiStatus;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import org.jetbrains.annotations.Unmodifiable;
 
 import java.util.Arrays;
 import java.util.Map;
+import java.util.Set;
 import java.util.function.BiFunction;
+import java.util.stream.Collectors;
 
 /**
  * Represents a custom intractable gui.
  */
 @ApiStatus.NonExtendable
 public interface AbstractGui {
-
-    @MagicConstant
-    short UNKNOWN = -1,
-        CONTAINER = 0,
-        CRAFTING = 1,
-        FUEL = 2,
-        OUTSIDE = 3,
-        QUICKBAR = 4,
-        RESULT = 5;
-
-    /**
-     * Checks if provided inventory view is a gui.
-     * @param view view
-     * @return if the inventory view is a gui
-     */
-    static boolean isGui(@NotNull InventoryView view) {
-        return isGui(view.getTopInventory());
-    }
-
-    /**
-     * Checks if provided inventory is a gui.
-     * @param inventory inventory
-     * @return if the inventory is a gui
-     */
-    static boolean isGui(@NotNull Inventory inventory) {
-        return inventory.getHolder() instanceof GuiHolder;
-    }
-
-    /**
-     * Converts inventory view to a gui.
-     * @param view view
-     * @return gui from the inventory view
-     * @throws UnsupportedOperationException if the inventory view is not a gui
-     */
-    static @NotNull AbstractGui getGui(@NotNull InventoryView view) {
-        return getGui(view.getBottomInventory());
-    }
-
-    /**
-     * Converts inventory to a gui.
-     * @param inventory inventory
-     * @return gui from the inventory
-     * @throws UnsupportedOperationException if the inventory is not a gui
-     */
-    static @NotNull AbstractGui getGui(@NotNull Inventory inventory) {
-        if(!(inventory.getHolder() instanceof GuiHolder holder))
-            throw new UnsupportedOperationException("Provided inventory is not a gui");
-        return holder.gui();
-    }
-
-    /**
-     * Returns currently opened gui of a player.
-     * @param player player
-     * @return player's opened gui
-     */
-    static @Nullable AbstractGui getGui(@NotNull Player player) {
-        if(isGui(player.getOpenInventory()))
-            return getGui(player.getOpenInventory());
-        return null;
-    }
 
     /**
      * Returns item in this gui in given slot.
@@ -118,7 +59,7 @@ public interface AbstractGui {
      * @throws NullPointerException if the slot with given id doesn't exist in this gui
      * @apiNote returns -1 if the type is unknown
      */
-    @MagicConstant short getSlotType(int slot);
+    @NotNull InventoryType.SlotType getSlotType(int slot);
 
     /**
      * Returns all contents of this gui, not including empty slots.
@@ -153,7 +94,7 @@ public interface AbstractGui {
      * Size of the gui - number of available slots.
      * @return size
      */
-    int size();
+    int getSize();
 
     /**
      * Title used by the gui.
@@ -171,30 +112,57 @@ public interface AbstractGui {
      * Called when the gui is opened.
      * @param event event
      */
-    void open(@NotNull GuiOpenEvent event);
+    void onOpen(@NotNull GuiOpenEvent event);
 
     /**
      * Called when the gui is closed.
      * @param event event
      */
-    void close(@NotNull GuiCloseEvent event);
+    void onClose(@NotNull GuiCloseEvent event);
 
     /**
      * Called when player click interacts in the gui.
      * @param event event
      */
-    void click(@NotNull GuiClickEvent event);
+    void onClick(@NotNull GuiClickEvent event);
 
     /**
      * Called when player drag interacts in the gui.
      * @param event event
      */
-    void drag(@NotNull GuiDragEvent event);
+    void onDrag(@NotNull GuiDragEvent event);
 
     /**
      * Opens the gui for a player.
      * @param player player
+     * @apiNote has to call {@link GuiOpenEvent} with plugin manager
+     * and {@link AbstractGui#onOpen(GuiOpenEvent)} internally because
+     * listener for open inventory event isn't and can't be implemented
      */
     void open(@NotNull Player player);
+
+    /**
+     * The player that was used to create the gui, can be null.
+     * @return owner
+     */
+    @Nullable Player getOwner();
+
+    /**
+     * Returns all current viewers of this gui.
+     * @return viewers
+     */
+    default @NotNull @Unmodifiable Set<Player> getViewers() {
+        return Bukkit.getOnlinePlayers().stream()
+                .filter(player -> equals(CraftUI.getGui(player)))
+                .collect(Collectors.toSet());
+    }
+
+    /**
+     * Returns amount of current viewers.
+     * @return amount of viewers
+     */
+    default int getViewerCount() {
+        return getViewers().size();
+    }
 
 }
