@@ -13,7 +13,6 @@ import org.jetbrains.annotations.Nullable;
 public class DynamicAnvilMenu_v1_19_R2 extends AnvilMenu implements DynamicMenu_v1_19_R2 {
 
     private final AnvilGui_v1_19_R2 impl;
-    private String lastName;
 
     public DynamicAnvilMenu_v1_19_R2(AnvilGui_v1_19_R2 impl, int i, Inventory playerInventory, ContainerLevelAccess containerAccess) {
         super(i, playerInventory, containerAccess);

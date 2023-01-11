@@ -7,9 +7,13 @@ import lombok.RequiredArgsConstructor;
 import me.pesekjak.craftyui.AbstractGui;
 import me.pesekjak.craftyui.CraftUI;
 import me.pesekjak.craftyui.guis.IAnvilGui;
+import me.pesekjak.craftyui.guis.IBeaconGui;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ServerboundRenameItemPacket;
+import net.minecraft.network.protocol.game.ServerboundSetBeaconPacket;
+import net.minecraft.world.effect.MobEffect;
 import org.bukkit.craftbukkit.v1_19_R2.entity.CraftPlayer;
+import org.bukkit.craftbukkit.v1_19_R2.potion.CraftPotionEffectType;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
@@ -33,6 +37,18 @@ public class PacketListeners_v1_19_R2 {
                         AbstractGui gui = CraftUI.getGui(player);
                         if(gui instanceof IAnvilGui anvil)
                             anvil.onTextInputChange(((ServerboundRenameItemPacket) packet).getName());
+                    }),
+                    Map.entry(ServerboundSetBeaconPacket.class, (player, packet) -> {
+                        ServerboundSetBeaconPacket beacon = (ServerboundSetBeaconPacket) packet;
+                        AbstractGui gui = CraftUI.getGui(player);
+                        if(gui instanceof IBeaconGui beaconGui) {
+                            MobEffect first = beacon.getPrimary().orElse(null);
+                            MobEffect second = beacon.getSecondary().orElse(null);
+                            beaconGui.onEffectChange(
+                                    first == null ? null : new CraftPotionEffectType(first),
+                                    second == null ? null : new CraftPotionEffectType(second)
+                            );
+                        }
                     })
                 );
 

@@ -3,6 +3,7 @@ package me.pesekjak.craftyui.v1_19_R2;
 import me.pesekjak.craftyui.GuiProvider;
 import me.pesekjak.craftyui.guis.*;
 import me.pesekjak.craftyui.v1_19_R2.impl.AnvilGui_v1_19_R2;
+import me.pesekjak.craftyui.v1_19_R2.impl.BeaconGui_v1_19_R2;
 import net.md_5.bungee.api.chat.BaseComponent;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
@@ -18,7 +19,8 @@ public class GuiProvider_v1_19_R2 implements GuiProvider {
 
     @Override
     public @NotNull IBeaconGui provideBeacon(@NotNull IBeaconGui wrapper, @Nullable Player player, BaseComponent @Nullable [] title) {
-        return null;
+        if(player == null) throw new NullPointerException();
+        return new BeaconGui_v1_19_R2(wrapper, player, title);
     }
 
     @Override

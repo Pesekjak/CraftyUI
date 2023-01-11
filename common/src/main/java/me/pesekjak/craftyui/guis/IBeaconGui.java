@@ -33,10 +33,22 @@ public interface IBeaconGui extends AbstractGui {
     void setPowerLevel(@Range(from = 0, to = 4) int powerLevel);
 
     /**
+     * Returns the first effect selected on the beacon.
+     * @return first effect
+     */
+    @Nullable PotionEffectType getFirstEffect();
+
+    /**
      * Changes the first selected effect of this beacon gui.
      * @param effect new effect
      */
     void setFirstEffect(@Nullable PotionEffectType effect);
+
+    /**
+     * Returns the second effect selected on the beacon.
+     * @return second effect
+     */
+    @Nullable PotionEffectType getSecondEffect();
 
     /**
      * Changes the first selected effect of this beacon gui.
