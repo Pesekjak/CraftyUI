@@ -1,6 +1,6 @@
 package me.pesekjak.craftyui.v1_19_R2.impl;
 
-import me.pesekjak.craftyui.AbstractGui;
+import me.pesekjak.craftyui.Gui;
 import me.pesekjak.craftyui.GuiHolder;
 import me.pesekjak.craftyui.events.GuiClickEvent;
 import me.pesekjak.craftyui.events.GuiCloseEvent;
@@ -33,14 +33,14 @@ public class GenericGui_v1_19_R2 implements IGeneric9x1Gui,
                                             IGeneric9x5Gui,
                                             IGeneric9x6Gui {
 
-    private final @NotNull AbstractGui wrapper;
+    private final @NotNull Gui wrapper;
     private final @NotNull CraftPlayer player;
     private final BaseComponent @NotNull [] title;
 
     private final @NotNull DynamicGenericMenu_v1_19_R2 menu;
     private final @NotNull InventoryView view;
 
-    public GenericGui_v1_19_R2(@NotNull AbstractGui wrapper, @NotNull Player player, BaseComponent @Nullable [] title, int rows) {
+    public GenericGui_v1_19_R2(@NotNull Gui wrapper, @NotNull Player player, BaseComponent @Nullable [] title, int rows) {
         this.wrapper = wrapper;
         this.player = (CraftPlayer) player;
         if(title == null || title.length == 0)
@@ -130,13 +130,7 @@ public class GenericGui_v1_19_R2 implements IGeneric9x1Gui,
 
     @Override
     public void open(@NotNull Player player) {
-        PacketListeners_v1_19_R2.inject(player);
-        GuiOpenEvent openEvent = new GuiOpenEvent(player, this);
-        Bukkit.getPluginManager().callEvent(openEvent);
-        if(openEvent.isCancelled()) return;
-        wrapper.onOpen(openEvent);
-        if(!openEvent.isCancelled())
-            player.openInventory(view);
+        Utils_v1_19_R2.openGui(player, wrapper, view);
     }
 
     @Override

@@ -1,7 +1,7 @@
 package me.pesekjak.craftyui.events;
 
 import lombok.Getter;
-import me.pesekjak.craftyui.AbstractGui;
+import me.pesekjak.craftyui.Gui;
 import org.bukkit.entity.Player;
 import org.bukkit.event.HandlerList;
 import org.bukkit.event.player.PlayerEvent;
@@ -15,9 +15,9 @@ public class GuiCloseEvent extends PlayerEvent {
     private static final HandlerList handlers = new HandlerList();
 
     @Getter
-    private final @NotNull AbstractGui gui;
+    private final @NotNull Gui gui;
 
-    public GuiCloseEvent(@NotNull Player who, @NotNull AbstractGui gui) {
+    public GuiCloseEvent(@NotNull Player who, @NotNull Gui gui) {
         super(who);
         this.gui = gui;
     }

@@ -4,7 +4,7 @@ import io.netty.channel.Channel;
 import io.netty.channel.ChannelDuplexHandler;
 import io.netty.channel.ChannelHandlerContext;
 import lombok.RequiredArgsConstructor;
-import me.pesekjak.craftyui.AbstractGui;
+import me.pesekjak.craftyui.Gui;
 import me.pesekjak.craftyui.CraftUI;
 import me.pesekjak.craftyui.guis.IAnvilGui;
 import me.pesekjak.craftyui.guis.IBeaconGui;
@@ -34,13 +34,13 @@ public class PacketListeners_v1_19_R2 {
         private final Player player;
         private final Map<Class<? extends Packet<?>>, BiConsumer<Player, Packet<?>>> handlers = Map.ofEntries(
                     Map.entry(ServerboundRenameItemPacket.class, (player, packet) -> {
-                        AbstractGui gui = CraftUI.getGui(player);
+                        Gui gui = CraftUI.getGui(player);
                         if(gui instanceof IAnvilGui anvil)
                             anvil.onTextInputChange(((ServerboundRenameItemPacket) packet).getName());
                     }),
                     Map.entry(ServerboundSetBeaconPacket.class, (player, packet) -> {
                         ServerboundSetBeaconPacket beacon = (ServerboundSetBeaconPacket) packet;
-                        AbstractGui gui = CraftUI.getGui(player);
+                        Gui gui = CraftUI.getGui(player);
                         if(gui instanceof IBeaconGui beaconGui) {
                             MobEffect first = beacon.getPrimary().orElse(null);
                             MobEffect second = beacon.getSecondary().orElse(null);

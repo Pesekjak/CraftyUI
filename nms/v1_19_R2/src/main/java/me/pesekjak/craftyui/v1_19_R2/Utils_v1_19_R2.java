@@ -1,13 +1,18 @@
 package me.pesekjak.craftyui.v1_19_R2;
 
+import me.pesekjak.craftyui.Gui;
+import me.pesekjak.craftyui.events.GuiOpenEvent;
 import net.md_5.bungee.api.chat.BaseComponent;
 import net.md_5.bungee.chat.ComponentSerializer;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.SimpleContainer;
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.craftbukkit.v1_19_R2.util.CraftChatMessage;
+import org.bukkit.entity.Player;
 import org.bukkit.inventory.InventoryHolder;
+import org.bukkit.inventory.InventoryView;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -52,6 +57,16 @@ public final class Utils_v1_19_R2 {
         } catch (IllegalAccessException exception) {
             throw new RuntimeException(exception);
         }
+    }
+
+    public static void openGui(@NotNull Player player, @NotNull Gui wrapper, @NotNull InventoryView view) {
+        PacketListeners_v1_19_R2.inject(player);
+        GuiOpenEvent openEvent = new GuiOpenEvent(player, wrapper);
+        Bukkit.getPluginManager().callEvent(openEvent);
+        if(openEvent.isCancelled()) return;
+        wrapper.onOpen(openEvent);
+        if(!openEvent.isCancelled())
+            player.openInventory(view);
     }
 
 }

@@ -12,7 +12,7 @@ import org.jetbrains.annotations.NotNull;
  */
 @ApiStatus.Internal
 public record GuiHolder(@NotNull Inventory inventory,
-                        @NotNull AbstractGui gui) implements InventoryHolder {
+                        @NotNull Gui gui) implements InventoryHolder {
 
     @Override
     public @NotNull Inventory getInventory() {

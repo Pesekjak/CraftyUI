@@ -125,13 +125,7 @@ public class BeaconGui_v1_19_R2 implements IBeaconGui {
 
     @Override
     public void open(@NotNull Player player) {
-        PacketListeners_v1_19_R2.inject(player);
-        GuiOpenEvent openEvent = new GuiOpenEvent(player, this);
-        Bukkit.getPluginManager().callEvent(openEvent);
-        if(openEvent.isCancelled()) return;
-        wrapper.onOpen(openEvent);
-        if(!openEvent.isCancelled())
-            player.openInventory(view);
+        Utils_v1_19_R2.openGui(player, wrapper, view);
     }
 
     @Override

@@ -83,7 +83,7 @@ public final class CraftUI implements Listener {
      * @return gui from the inventory view
      * @throws UnsupportedOperationException if the inventory view is not a gui
      */
-    public static @NotNull AbstractGui getGui(@NotNull InventoryView view) {
+    public static @NotNull Gui getGui(@NotNull InventoryView view) {
         return getGui(view.getTopInventory());
     }
 
@@ -93,7 +93,7 @@ public final class CraftUI implements Listener {
      * @return gui from the inventory
      * @throws UnsupportedOperationException if the inventory is not a gui
      */
-    public static @NotNull AbstractGui getGui(@NotNull Inventory inventory) {
+    public static @NotNull Gui getGui(@NotNull Inventory inventory) {
         if(!(inventory.getHolder() instanceof GuiHolder holder))
             throw new UnsupportedOperationException("Provided inventory is not a gui");
         return holder.gui();
@@ -104,7 +104,7 @@ public final class CraftUI implements Listener {
      * @param player player
      * @return player's opened gui
      */
-    public static @Nullable AbstractGui getGui(@NotNull Player player) {
+    public static @Nullable Gui getGui(@NotNull Player player) {
         if(isGui(player.getOpenInventory()))
             return getGui(player.getOpenInventory());
         return null;

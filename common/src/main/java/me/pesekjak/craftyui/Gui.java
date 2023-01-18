@@ -22,10 +22,11 @@ import java.util.function.BiFunction;
 import java.util.stream.Collectors;
 
 /**
- * Represents a custom intractable gui.
+ * Represents a custom intractable gui, for implementations and
+ * public part of the api see {@link me.pesekjak.craftyui.api}.
  */
 @ApiStatus.NonExtendable
-public interface AbstractGui {
+public interface Gui {
 
     /**
      * Returns item in this gui in given slot.
@@ -57,7 +58,6 @@ public interface AbstractGui {
      * @param slot slot id
      * @return slot type of given slot
      * @throws NullPointerException if the slot with given id doesn't exist in this gui
-     * @apiNote returns -1 if the type is unknown
      */
     @NotNull InventoryType.SlotType getSlotType(int slot);
 
@@ -86,7 +86,7 @@ public interface AbstractGui {
      * Applies given function to each slot in this gui.
      * @param function function
      */
-    default void apply(BiFunction<AbstractGui, Integer, ItemStack> function) {
+    default void apply(BiFunction<Gui, Integer, ItemStack> function) {
         getSlots().keySet().forEach(i -> function.apply(this, i));
     }
 
@@ -136,7 +136,7 @@ public interface AbstractGui {
      * Opens the gui for a player.
      * @param player player
      * @apiNote has to call {@link GuiOpenEvent} with plugin manager
-     * and {@link AbstractGui#onOpen(GuiOpenEvent)} internally because
+     * and {@link Gui#onOpen(GuiOpenEvent)} internally because
      * listener for open inventory event isn't and can't be implemented
      */
     void open(@NotNull Player player);

@@ -1,12 +1,12 @@
 package me.pesekjak.craftyui.guis;
 
-import me.pesekjak.craftyui.AbstractGui;
+import me.pesekjak.craftyui.Gui;
 import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NonNls;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-public interface IAnvilGui extends AbstractGui {
+public interface IAnvilGui extends Gui {
 
     /**
      * Returns item in the first input slot of this anvil gui.

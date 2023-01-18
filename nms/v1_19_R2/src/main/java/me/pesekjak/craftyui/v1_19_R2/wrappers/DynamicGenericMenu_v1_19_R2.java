@@ -1,6 +1,6 @@
 package me.pesekjak.craftyui.v1_19_R2.wrappers;
 
-import me.pesekjak.craftyui.AbstractGui;
+import me.pesekjak.craftyui.Gui;
 import me.pesekjak.craftyui.v1_19_R2.DynamicMenu_v1_19_R2;
 import me.pesekjak.craftyui.v1_19_R2.Utils_v1_19_R2;
 import net.minecraft.world.SimpleContainer;
@@ -13,9 +13,9 @@ import org.jetbrains.annotations.Nullable;
 
 public class DynamicGenericMenu_v1_19_R2 extends ChestMenu implements DynamicMenu_v1_19_R2 {
 
-    private final AbstractGui impl;
+    private final Gui impl;
 
-    public DynamicGenericMenu_v1_19_R2(AbstractGui impl, int i, Inventory playerInventory, int rows) {
+    public DynamicGenericMenu_v1_19_R2(Gui impl, int i, Inventory playerInventory, int rows) {
         super(getMenuType(rows), i, playerInventory, new SimpleContainer(9 * rows), rows);
         this.impl = impl;
     }

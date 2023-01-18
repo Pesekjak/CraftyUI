@@ -2,7 +2,7 @@ package me.pesekjak.craftyui.events;
 
 import lombok.Getter;
 import lombok.Setter;
-import me.pesekjak.craftyui.AbstractGui;
+import me.pesekjak.craftyui.Gui;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Cancellable;
 import org.bukkit.event.HandlerList;
@@ -19,7 +19,7 @@ public class GuiDragEvent extends PlayerEvent implements Cancellable {
 
     private static final HandlerList handlers = new HandlerList();
 
-    private final @NotNull AbstractGui gui;
+    private final @NotNull Gui gui;
     private final @NotNull DragType drag;
     /**
      * Ids of changed slots in the gui mapped to their new content.
@@ -34,7 +34,7 @@ public class GuiDragEvent extends PlayerEvent implements Cancellable {
     private boolean cancelled = false;
 
     public GuiDragEvent(@NotNull Player who,
-                        @NotNull AbstractGui gui,
+                        @NotNull Gui gui,
                         @NotNull DragType drag,
                         Map<Integer, ItemStack> guiChanges,
                         Map<Integer, ItemStack> playerChanges) {

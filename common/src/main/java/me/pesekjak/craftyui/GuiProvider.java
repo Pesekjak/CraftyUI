@@ -47,20 +47,22 @@ public interface GuiProvider {
         return get(CraftUI.getVersion(server));
     }
 
-    @NotNull IAnvilGui provideAnvil(@NotNull IAnvilGui wrapper, @Nullable Player player, BaseComponent @Nullable [] title);
+    @NotNull IAnvilGui provideAnvil(@NotNull IAnvilGui wrapper, @NotNull Player player, BaseComponent @Nullable [] title);
 
-    @NotNull IBeaconGui provideBeacon(@NotNull IBeaconGui wrapper, @Nullable Player player, BaseComponent @Nullable [] title);
+    @NotNull IBeaconGui provideBeacon(@NotNull IBeaconGui wrapper, @NotNull Player player, BaseComponent @Nullable [] title);
 
-    @NotNull IGeneric9x1Gui provideGeneric9x1(@NotNull IGeneric9x1Gui wrapper, @Nullable Player player, BaseComponent @Nullable [] title);
+    @NotNull IGeneric3x3Gui provideGeneric3x3(@NotNull IGeneric3x3Gui wrapper, @NotNull Player player, BaseComponent @Nullable [] title);
 
-    @NotNull IGeneric9x2Gui provideGeneric9x2(@NotNull IGeneric9x2Gui wrapper, @Nullable Player player, BaseComponent @Nullable [] title);
+    @NotNull IGeneric9x1Gui provideGeneric9x1(@NotNull IGeneric9x1Gui wrapper, @NotNull Player player, BaseComponent @Nullable [] title);
 
-    @NotNull IGeneric9x3Gui provideGeneric9x3(@NotNull IGeneric9x3Gui wrapper, @Nullable Player player, BaseComponent @Nullable [] title);
+    @NotNull IGeneric9x2Gui provideGeneric9x2(@NotNull IGeneric9x2Gui wrapper, @NotNull Player player, BaseComponent @Nullable [] title);
 
-    @NotNull IGeneric9x4Gui provideGeneric9x4(@NotNull IGeneric9x4Gui wrapper, @Nullable Player player, BaseComponent @Nullable [] title);
+    @NotNull IGeneric9x3Gui provideGeneric9x3(@NotNull IGeneric9x3Gui wrapper, @NotNull Player player, BaseComponent @Nullable [] title);
 
-    @NotNull IGeneric9x5Gui provideGeneric9x5(@NotNull IGeneric9x5Gui wrapper, @Nullable Player player, BaseComponent @Nullable [] title);
+    @NotNull IGeneric9x4Gui provideGeneric9x4(@NotNull IGeneric9x4Gui wrapper, @NotNull Player player, BaseComponent @Nullable [] title);
 
-    @NotNull IGeneric9x6Gui provideGeneric9x6(@NotNull IGeneric9x6Gui wrapper, @Nullable Player player, BaseComponent @Nullable [] title);
+    @NotNull IGeneric9x5Gui provideGeneric9x5(@NotNull IGeneric9x5Gui wrapper, @NotNull Player player, BaseComponent @Nullable [] title);
+
+    @NotNull IGeneric9x6Gui provideGeneric9x6(@NotNull IGeneric9x6Gui wrapper, @NotNull Player player, BaseComponent @Nullable [] title);
 
 }

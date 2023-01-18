@@ -2,7 +2,7 @@ package me.pesekjak.craftyui.events;
 
 import lombok.Getter;
 import lombok.Setter;
-import me.pesekjak.craftyui.AbstractGui;
+import me.pesekjak.craftyui.Gui;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Cancellable;
 import org.bukkit.event.HandlerList;
@@ -22,7 +22,7 @@ public class GuiClickEvent extends PlayerEvent implements Cancellable {
 
     private static final HandlerList handlers = new HandlerList();
 
-    private final @NotNull AbstractGui gui;
+    private final @NotNull Gui gui;
     private final @NotNull InventoryAction action;
     private final @NotNull ClickType click;
     /**
@@ -38,7 +38,7 @@ public class GuiClickEvent extends PlayerEvent implements Cancellable {
     private boolean cancelled = false;
 
     public GuiClickEvent(@NotNull Player who,
-                         @NotNull AbstractGui gui,
+                         @NotNull Gui gui,
                          @NotNull InventoryAction action,
                          @NotNull ClickType click,
                          boolean inGui,

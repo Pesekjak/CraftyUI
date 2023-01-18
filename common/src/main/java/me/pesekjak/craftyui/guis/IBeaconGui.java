@@ -1,13 +1,13 @@
 package me.pesekjak.craftyui.guis;
 
-import me.pesekjak.craftyui.AbstractGui;
+import me.pesekjak.craftyui.Gui;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffectType;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.jetbrains.annotations.Range;
 
-public interface IBeaconGui extends AbstractGui {
+public interface IBeaconGui extends Gui {
 
     /**
      * Returns item in the first input slot of an anvil gui.
