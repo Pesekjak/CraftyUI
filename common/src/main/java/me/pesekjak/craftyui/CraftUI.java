@@ -20,9 +20,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
@@ -35,13 +33,15 @@ public final class CraftUI implements Listener {
     @Getter
     static @Nullable GuiProvider serverProvider;
 
+    private final @NotNull JavaPlugin source;
+
     static {
         registerDefaultProviders();
         serverProvider = GuiProvider.get(Bukkit.getServer());
     }
 
-    private CraftUI() {
-
+    private CraftUI(@NotNull JavaPlugin source) {
+        this.source = source;
     }
 
     /**
@@ -54,8 +54,9 @@ public final class CraftUI implements Listener {
                 .filter(listener -> listener instanceof CraftUI)
                 .findAny().orElse(null);
         if(registered != null) return registered;
-        CraftUI instance = new CraftUI();
+        CraftUI instance = new CraftUI(plugin);
         Bukkit.getPluginManager().registerEvents(instance, plugin);
+        updateActiveListeners();
         return instance;
     }
 
@@ -133,6 +134,7 @@ public final class CraftUI implements Listener {
 
     @EventHandler
     public void onInventoryClose(@NotNull InventoryCloseEvent event) {
+        if(!isActiveListener()) return;
         if(!(event.getPlayer() instanceof Player player))
             return;
         if(!(player.getOpenInventory().getTopInventory().getHolder() instanceof GuiHolder holder))
@@ -144,6 +146,7 @@ public final class CraftUI implements Listener {
 
     @EventHandler
     public void onInventoryClick(@NotNull InventoryClickEvent event) {
+        if(!isActiveListener()) return;
         if(event.isCancelled()) return;
         if(!(event.getWhoClicked() instanceof Player player))
             return;
@@ -154,7 +157,7 @@ public final class CraftUI implements Listener {
                 holder.gui(),
                 event.getAction(),
                 event.getClick(),
-                event.getSlot() < event.getView().getTopInventory().getSize(),
+                event.getSlot() < event.getView().getTopInventory().getSize() && event.getSlot() != -999,
                 event.getHotbarButton() != -1 ? event.getHotbarButton() : null,
                 event.getSlot());
         Bukkit.getPluginManager().callEvent(click);
@@ -168,6 +171,7 @@ public final class CraftUI implements Listener {
 
     @EventHandler
     public void onInventoryDrag(@NotNull InventoryDragEvent event) {
+        if(!isActiveListener()) return;
         if(event.isCancelled()) return;
         if(!(event.getWhoClicked() instanceof Player player))
             return;
@@ -191,6 +195,27 @@ public final class CraftUI implements Listener {
                 event.setCancelled(true);
         } else
             event.setCancelled(true);
+    }
+
+    private static final Map</* plugin name */String, Listener> listeners = new TreeMap<>();
+
+    private boolean isActiveListener() {
+        if(listeners.size() == 0) return false;
+        return listeners.keySet().iterator().next().equals(source.getName());
+    }
+
+    private static void updateActiveListeners() {
+        listeners.clear();
+        List<RegisteredListener[]> allRegistered = HandlerList.getHandlerLists().stream()
+                .map(handler -> handler.getRegisteredListeners())
+                .filter(registeredListeners -> Arrays.stream(registeredListeners)
+                        .anyMatch(listener -> listener.getListener() instanceof CraftUI))
+                .toList();
+        for (RegisteredListener[] registered : allRegistered) {
+            Arrays.stream(registered)
+                    .filter(listener -> listener.getListener() instanceof CraftUI)
+                    .forEach(listener -> listeners.put(listener.getPlugin().getName(), listener.getListener()));
+        }
     }
 
 }

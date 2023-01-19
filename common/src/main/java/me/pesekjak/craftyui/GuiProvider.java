@@ -65,4 +65,6 @@ public interface GuiProvider {
 
     @NotNull IGeneric9x6Gui provideGeneric9x6(@NotNull IGeneric9x6Gui wrapper, @NotNull Player player, BaseComponent @Nullable [] title);
 
+    @NotNull IHopperGui provideHopper(@NotNull IHopperGui wrapper, @NotNull Player player, BaseComponent @Nullable [] title);
+
 }

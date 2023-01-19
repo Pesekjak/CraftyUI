@@ -5,9 +5,9 @@ import me.pesekjak.craftyui.events.GuiClickEvent;
 import me.pesekjak.craftyui.events.GuiCloseEvent;
 import me.pesekjak.craftyui.events.GuiDragEvent;
 import me.pesekjak.craftyui.events.GuiOpenEvent;
-import me.pesekjak.craftyui.guis.IGeneric3x3Gui;
+import me.pesekjak.craftyui.guis.IHopperGui;
 import me.pesekjak.craftyui.v1_19_R2.Utils_v1_19_R2;
-import me.pesekjak.craftyui.v1_19_R2.wrappers.DynamicGeneric3x3Menu_v1_19_R2;
+import me.pesekjak.craftyui.v1_19_R2.wrappers.DynamicHopperMenu_v1_19_R2;
 import net.md_5.bungee.api.chat.BaseComponent;
 import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.Material;
@@ -23,23 +23,23 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.TreeMap;
 
-public class Generic3x3Gui_v1_19_R2 implements IGeneric3x3Gui {
+public class HopperGui_v1_19_R2 implements IHopperGui {
 
-    private final @NotNull IGeneric3x3Gui wrapper;
+    private final @NotNull IHopperGui wrapper;
     private final @NotNull CraftPlayer player;
     private final BaseComponent @NotNull [] title;
 
-    private final @NotNull DynamicGeneric3x3Menu_v1_19_R2 menu;
+    private final @NotNull DynamicHopperMenu_v1_19_R2 menu;
     private final @NotNull InventoryView view;
 
-    public Generic3x3Gui_v1_19_R2(@NotNull IGeneric3x3Gui wrapper, @NotNull Player player, BaseComponent @Nullable [] title) {
+    public HopperGui_v1_19_R2(@NotNull IHopperGui wrapper, @NotNull Player player, BaseComponent @Nullable [] title) {
         this.wrapper = wrapper;
         this.player = (CraftPlayer) player;
         if(title == null || title.length == 0)
             this.title = TextComponent.fromLegacyText(getType().getDefaultTitle());
         else
             this.title = title;
-        menu = new DynamicGeneric3x3Menu_v1_19_R2(
+        menu = new DynamicHopperMenu_v1_19_R2(
                 this,
                 this.player.getHandle().nextContainerCounter(),
                 this.player.getHandle().getInventory());

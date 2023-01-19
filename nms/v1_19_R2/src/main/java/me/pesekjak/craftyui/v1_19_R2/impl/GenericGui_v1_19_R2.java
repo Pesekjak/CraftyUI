@@ -7,12 +7,10 @@ import me.pesekjak.craftyui.events.GuiCloseEvent;
 import me.pesekjak.craftyui.events.GuiDragEvent;
 import me.pesekjak.craftyui.events.GuiOpenEvent;
 import me.pesekjak.craftyui.guis.*;
-import me.pesekjak.craftyui.v1_19_R2.PacketListeners_v1_19_R2;
 import me.pesekjak.craftyui.v1_19_R2.Utils_v1_19_R2;
 import me.pesekjak.craftyui.v1_19_R2.wrappers.DynamicGenericMenu_v1_19_R2;
 import net.md_5.bungee.api.chat.BaseComponent;
 import net.md_5.bungee.api.chat.TextComponent;
-import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.craftbukkit.v1_19_R2.entity.CraftPlayer;
 import org.bukkit.entity.Player;
@@ -105,7 +103,7 @@ public class GenericGui_v1_19_R2 implements IGeneric9x1Gui,
 
     @Override
     public @NotNull InventoryType getType() {
-        return InventoryType.CHEST;
+        return view.getTopInventory().getType();
     }
 
     @Override

@@ -5,10 +5,7 @@ import me.pesekjak.craftyui.v1_19_R2.Utils_v1_19_R2;
 import me.pesekjak.craftyui.v1_19_R2.impl.BeaconGui_v1_19_R2;
 import net.minecraft.world.Container;
 import net.minecraft.world.SimpleContainer;
-import net.minecraft.world.inventory.BeaconMenu;
-import net.minecraft.world.inventory.ContainerData;
-import net.minecraft.world.inventory.ContainerLevelAccess;
-import net.minecraft.world.inventory.SimpleContainerData;
+import net.minecraft.world.inventory.*;
 import org.bukkit.inventory.InventoryHolder;
 import org.jetbrains.annotations.Nullable;
 
@@ -55,6 +52,11 @@ public class DynamicBeaconMenu_v1_19_R2 extends BeaconMenu implements DynamicMen
     @Override
     public void setHolder(@Nullable InventoryHolder holder) {
         Utils_v1_19_R2.setHolder((SimpleContainer) beacon, holder);
+    }
+
+    @Override
+    public MenuType<?> getType() {
+        return MenuType.BEACON;
     }
 
 }

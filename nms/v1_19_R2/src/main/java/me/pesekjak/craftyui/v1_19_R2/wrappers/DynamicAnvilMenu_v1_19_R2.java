@@ -7,6 +7,7 @@ import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.AnvilMenu;
 import net.minecraft.world.inventory.ContainerLevelAccess;
+import net.minecraft.world.inventory.MenuType;
 import org.bukkit.inventory.InventoryHolder;
 import org.jetbrains.annotations.Nullable;
 
@@ -27,6 +28,11 @@ public class DynamicAnvilMenu_v1_19_R2 extends AnvilMenu implements DynamicMenu_
     @Override
     public void setHolder(@Nullable InventoryHolder holder) {
         Utils_v1_19_R2.setHolder((SimpleContainer) inputSlots, holder);
+    }
+
+    @Override
+    public MenuType<?> getType() {
+        return MenuType.ANVIL;
     }
 
 }

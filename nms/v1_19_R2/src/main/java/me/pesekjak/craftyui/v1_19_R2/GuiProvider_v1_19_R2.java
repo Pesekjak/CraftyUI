@@ -2,10 +2,7 @@ package me.pesekjak.craftyui.v1_19_R2;
 
 import me.pesekjak.craftyui.GuiProvider;
 import me.pesekjak.craftyui.guis.*;
-import me.pesekjak.craftyui.v1_19_R2.impl.AnvilGui_v1_19_R2;
-import me.pesekjak.craftyui.v1_19_R2.impl.BeaconGui_v1_19_R2;
-import me.pesekjak.craftyui.v1_19_R2.impl.Generic3x3Gui_v1_19_R2;
-import me.pesekjak.craftyui.v1_19_R2.impl.GenericGui_v1_19_R2;
+import me.pesekjak.craftyui.v1_19_R2.impl.*;
 import net.md_5.bungee.api.chat.BaseComponent;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
@@ -56,6 +53,11 @@ public class GuiProvider_v1_19_R2 implements GuiProvider {
     @Override
     public @NotNull IGeneric9x6Gui provideGeneric9x6(@NotNull IGeneric9x6Gui wrapper, @NotNull Player player, BaseComponent @Nullable [] title) {
         return new GenericGui_v1_19_R2(wrapper, player, title, 6);
+    }
+
+    @Override
+    public @NotNull IHopperGui provideHopper(@NotNull IHopperGui wrapper, @NotNull Player player, BaseComponent @Nullable [] title) {
+        return new HopperGui_v1_19_R2(wrapper, player, title);
     }
 
 }
